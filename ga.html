@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <head>
     <script src="jquery-3.7.1.min.js"></script>
+    <script src="p5.js"></script>
+    <script src="car.js"></script>
     <!-- <script src="pathAnimator.js"></script> -->
     <link rel="stylesheet" href="ga.css">
 </head>
 
 <html>
     <body>
-        <svg id="svgElem" viewBox="-10 -10 173 61">
+        <svg id="svgElem">
             <path d="M153,20.89c0-45.88-74.95,0-74.95,0S.5,66.76.5,20.89s77.54,0,77.54,0S153,66.76,153,20.89Z" id="followPath_invisible" fill="none" stroke="#000" vector-effect="non-scaling-stroke" class="infinity"/>
             <path d="M153,20.89c0-45.88-74.95,0-74.95,0S.5,66.76.5,20.89s77.54,0,77.54,0S153,66.76,153,20.89Z" id="followPath" fill="none" stroke="#000" vector-effect="non-scaling-stroke" class="infinity"/>
             <!-- <circle id="circle" r="5" cx="0" cy="0" fill="purple" class="circle"> -->
@@ -18,6 +20,7 @@
 
         <div id="planetA"></div>
         <h4></h4>
+        <div id="sketch-holder"></div>
 
         <!-- <div class="circleContainer">
             <svg class="circle" width='450' height='450'>
