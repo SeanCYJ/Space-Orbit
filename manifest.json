@@ -1,0 +1,10 @@
+{
+    "name": "GA",
+    "description": "Gravity Assist",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+      "default_popup": "ga.html",
+      "default_icon": "hello_extensions.png"
+    }
+  }
