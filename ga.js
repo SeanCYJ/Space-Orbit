@@ -46,19 +46,19 @@ orbitA();
 
 let car;
 let trail = []; // Leave a trail behind the car
-const TRAIL_LENGTH = 100;
+const TRAIL_LENGTH = 50;
 
 function setup() {
-    let canvas = createCanvas(500,500);
+    let canvas = createCanvas(450,300);
     canvas.parent('sketch-holder');
     // noCanvas();
-    frameRate(60);
+    frameRate(24);
 
     car = new Car(width/2, 20, 0);
 }
 
 function draw() {
-    let c = color(255, 255, 255, 0);
+    let c = color(0, 0, 255);
     background(c);
 
   car.update();
@@ -82,18 +82,21 @@ function draw() {
   });
 
   // Delete the oldest car position if the trail is long enough.
-  if (trail.length > TRAIL_LENGTH) trail.splice(0,1);
+  if (trail.length > TRAIL_LENGTH) {
+    trail.splice(0, 1);
+    // trail.splice(-1, 30);
+  }
 
   // Render the car's trail. Change color of trail depending on whether
   // drifting or not.
   stroke(255); strokeWeight(3); noFill();
   for (let p of trail){
     // Colour the trail to show when drifting
-    if(p.drifting) {
-      stroke(255,100,100);
-    } else {
-      stroke(255);
-    }
+    // if(p.drifting) {
+    //   stroke(255,100,100);
+    // } else {
+    //   stroke(255);
+    // }
     point(p.position.x, p.position.y);
   }
 
@@ -110,13 +113,29 @@ function draw() {
     car.d.y = height;
   }
 
+//   $('#spacecraft').animate(
+//     {
+//         top: trail.length===11 ? trail[10].position.x : 0,
+//         left: trail.length===11 ? trail[10].position.y : 0
+//     },{
+//         duration: 100,
+//         easing: "linear"
+//     }
+//   )
+
+    console.log(car.angle);
+
+    // Update spacecraft position using the ~middle of the trail to have both a predicted path and a travelled path
+    $("#spacecraft").css({top: (trail.length > 30 ? trail[30].position.y + 15 + "px" : 0), left: (trail.length > 30 ? trail[30].position.x - 15 + "px" : 0), position:'relative'});
+    $("#spacecraft-icon").css({ 'transform': 'rotate(' + ((car.angle)/Math.PI)*180 + 'deg)'});
 }
+console.log('here');
 
 
 // Prevent arrow-keys and spacebar from scrolling the page.
 window.addEventListener("keydown", (key) => {
     // space and arrow keys
-    if([32, 37, 38, 39, 40].indexOf(key.keyCode) > -1) {
+    if([32, 37, 38, 39].indexOf(key.keyCode) > -1) {
         key.preventDefault();
     }
 }, false);

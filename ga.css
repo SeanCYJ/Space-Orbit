@@ -1,6 +1,6 @@
 body {
-    height: 500px;
-    width: 500px;
+    height: 300px;
+    width: 450px;
     overflow: hidden;
     display: grid;
     place-items: center;
@@ -22,6 +22,25 @@ body {
     border-radius: 50%;
     offset-path: path('M153 20.89c0-45.88-74.95 0-74.95 0S.5,66.76.5 20.89s77.54 0 77.54 0S153 66.76 153 20.89Z');
     offset-distance: 0%;
+    z-index: 1;
+}
+
+#sketch-holder {
+    position: absolute;
+    z-index: 0;
+}
+
+#spacecraft {
+    width: 30px;
+    height: 30px;
+    transform: rotate(-90deg);
+    z-index: 1;
+    /* background-color: aqua; */
+}
+
+#spacecraft-icon {
+    width: 30px;
+    height: 30px;
 }
 
 /* @keyframes planetA-Anim {
@@ -38,6 +57,7 @@ body {
     top: 50px;
     left: 50px;
     overflow: visible;
-    width: 500px;
-    height:500px;
+    width: 300px;
+    height:300px;
+    z-index: 1;
 }
