@@ -22,7 +22,7 @@ class Car {
       this.m = 5;                          // mass
       this.w = 18;                          // width of body (for animation)
       this.l = 30;                          // length of body (for animation)
-      this.f = 0.1;                        // Acceleration / braking force
+      this.f = 0.05;                        // Acceleration / braking force
       this.isDrifting = false;              // Drift state
   
       // Colour variable - in an example the car colour changes when it loses traction

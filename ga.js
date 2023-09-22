@@ -28,7 +28,7 @@ function orbitA() {
             easing: "linear",
             step: function() {
                 var offset = $("#planetA").offset();
-                $("h4").text("Location of the box is: (left: " + Math.round(offset.left) 
+                $("#P-A").text("Location of the box is: (left: " + Math.round(offset.left) 
                 + ", top: " + Math.round(offset.top) + ")");
             },
             complete: function(){
@@ -40,7 +40,53 @@ function orbitA() {
     );
 }
 
+function orbitB() {
+    $('#planetB').animate(
+        {
+            offsetDistance: "99.9%",
+        }, 
+        { 
+            duration: 30000,
+            easing: "linear",
+            step: function() {
+                var offset = $("#planetB").offset();
+                $("#P-B").text("Location of the box is: (left: " + Math.round(offset.left) 
+                + ", top: " + Math.round(offset.top) + ")");
+            },
+            complete: function(){
+                // $("#planetA").offset({top: oriOffset.top, left: oriOffset.left});
+                $("#planetB").css("offset-distance", 0);
+                orbitB();
+            }
+        }
+    );
+}
+
+function orbitC() {
+    $('#planetC').animate(
+        {
+            offsetDistance: "99.9%",
+        }, 
+        { 
+            duration: 30000,
+            easing: "linear",
+            step: function() {
+                var offset = $("#planetC").offset();
+                $("#P-B").text("Location of the box is: (left: " + Math.round(offset.left) 
+                + ", top: " + Math.round(offset.top) + ")");
+            },
+            complete: function(){
+                // $("#planetA").offset({top: oriOffset.top, left: oriOffset.left});
+                $("#planetC").css("offset-distance", 0);
+                orbitC();
+            }
+        }
+    );
+}
+
 orbitA();
+orbitB();
+orbitC();
 
 
 
