@@ -7,11 +7,11 @@ class Car {
     constructor(x = width/2, y = height/2, angle = 0) {
   
       // Turning parameters. Tune these as you see fit.
-      this.turnRateStatic = 0.05;            // The normal turning-rate (static friction => not sliding)
+      this.turnRateStatic = 0.08;            // The normal turning-rate (static friction => not sliding)
       this.turnRateDynamic = 0.08;          // The turning-rate when drifting
       this.turnRate = this.turnRateStatic;  // initialise turn-rate
-      this.gripStatic = 0.01;                  // sliding friction while gripping
-      this.gripDynamic = 0.01;               // sliding friction while drifting
+      this.gripStatic = 0.001;                  // sliding friction while gripping
+      this.gripDynamic = 0.001;               // sliding friction while drifting
       this.DRIFT_CONSTANT = 5;              // sets the x-velocity threshold for no-drift <=> drift. Lower = drift sooner
   
       // Physical properties
@@ -56,8 +56,6 @@ class Car {
         // rect(0,0, this.w, this.l); // Car body
         // rect(0, this.l/2, 4,4);    // Indicate front side
         pop();
-        push();
-        pop();
     }
   
     update() {
@@ -96,7 +94,7 @@ class Car {
         // Gripping
         grip = this.gripStatic
         this.turnRate = this.turnRateStatic;
-        this.isDrifting = false;
+        this.isDrifting = true;
       } else {
         // Drifting
         grip = this.gripDynamic;
