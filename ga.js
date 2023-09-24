@@ -104,6 +104,7 @@ function setup() {
 }
 
 function draw() {
+    var planetDis[];
     let c = color(0, 0, 255);
     background(c);
 
@@ -174,6 +175,13 @@ function draw() {
     // Update spacecraft position using the ~middle of the trail to have both a predicted path and a travelled path
     $("#spacecraft").css({top: (trail.length > 30 ? trail[30].position.y + 15 + "px" : 0), left: (trail.length > 30 ? trail[30].position.x - 15 + "px" : 0), position:'relative'});
     $("#spacecraft-icon").css({ 'transform': 'rotate(' + ((car.angle)/Math.PI)*180 + 'deg)'});
+    if(trail.length > 30){
+        for (let i=0; i < 3; i++){
+        planetDis[i] = Math.sqrt(Math.pow(Math.abs(trail[30].position.y - $(#planetA).offset().top),2) + 
+            Math.pow(Math.abs(trail[30].position.x - $(#planetA).offset().left),2))
+    
+        }
+    }
 }
 console.log('here');
 
