@@ -16,10 +16,10 @@ $('#ButtonAnimation').on('click', function() {
 });
 
 
-var oriOffset = $('#planetA').offset();
+var oriOffset = $('#planet0').offset();
 
 function orbitA() {
-    $('#planetA').animate(
+    $('#planet0').animate(
         {
             offsetDistance: "99.9%",
         }, 
@@ -27,13 +27,13 @@ function orbitA() {
             duration: 30000,
             easing: "linear",
             step: function() {
-                var offset = $("#planetA").offset();
+                var offset = $("#planet0").offset();
                 $("#P-A").text("Location of the box is: (left: " + Math.round(offset.left) 
                 + ", top: " + Math.round(offset.top) + ")");
             },
             complete: function(){
                 // $("#planetA").offset({top: oriOffset.top, left: oriOffset.left});
-                $("#planetA").css("offset-distance", 0);
+                $("#planet0").css("offset-distance", 0);
                 orbitA();
             }
         }
@@ -41,7 +41,7 @@ function orbitA() {
 }
 
 function orbitB() {
-    $('#planetB').animate(
+    $('#planet1').animate(
         {
             offsetDistance: "99.9%",
         }, 
@@ -49,13 +49,13 @@ function orbitB() {
             duration: 30000,
             easing: "linear",
             step: function() {
-                var offset = $("#planetB").offset();
+                var offset = $("#planet1").offset();
                 $("#P-B").text("Location of the box is: (left: " + Math.round(offset.left) 
                 + ", top: " + Math.round(offset.top) + ")");
             },
             complete: function(){
                 // $("#planetA").offset({top: oriOffset.top, left: oriOffset.left});
-                $("#planetB").css("offset-distance", 0);
+                $("#planet1").css("offset-distance", 0);
                 orbitB();
             }
         }
@@ -63,7 +63,7 @@ function orbitB() {
 }
 
 function orbitC() {
-    $('#planetC').animate(
+    $('#planet2').animate(
         {
             offsetDistance: "99.9%",
         }, 
@@ -71,13 +71,13 @@ function orbitC() {
             duration: 30000,
             easing: "linear",
             step: function() {
-                var offset = $("#planetC").offset();
+                var offset = $("#planet2").offset();
                 $("#P-B").text("Location of the box is: (left: " + Math.round(offset.left) 
                 + ", top: " + Math.round(offset.top) + ")");
             },
             complete: function(){
                 // $("#planetA").offset({top: oriOffset.top, left: oriOffset.left});
-                $("#planetC").css("offset-distance", 0);
+                $("#planet2").css("offset-distance", 0);
                 orbitC();
             }
         }
@@ -104,7 +104,7 @@ function setup() {
 }
 
 function draw() {
-    var planetDis[];
+    var planetDis=[];
     let c = color(0, 0, 255);
     background(c);
 
@@ -173,17 +173,18 @@ function draw() {
     console.log(car.angle);
 
     // Update spacecraft position using the ~middle of the trail to have both a predicted path and a travelled path
-    $("#spacecraft").css({top: (trail.length > 30 ? trail[30].position.y + 15 + "px" : 0), left: (trail.length > 30 ? trail[30].position.x - 15 + "px" : 0), position:'relative'});
+    $("#spacecraft").css({top: (trail.length > 30 ? trail[30].position.y - 15 + "px" : 0), left: (trail.length > 30 ? trail[30].position.x - 15 + "px" : 0), position:'relative'});
     $("#spacecraft-icon").css({ 'transform': 'rotate(' + ((car.angle)/Math.PI)*180 + 'deg)'});
     if(trail.length > 30){
         for (let i=0; i < 3; i++){
-        planetDis[i] = Math.sqrt(Math.pow(Math.abs(trail[30].position.y - $(#planetA).offset().top),2) + 
-            Math.pow(Math.abs(trail[30].position.x - $(#planetA).offset().left),2))
+        planetDis[i] = Math.sqrt(Math.pow(Math.abs(trail[30].position.y - $('#planet' + i).offset().top),2) + 
+            Math.pow(Math.abs(trail[30].position.x - $('#planet' + i).offset().left),2))
     
         }
+        console.log(planetDis);
     }
 }
-console.log('here');
+
 
 
 // Prevent arrow-keys and spacebar from scrolling the page.
