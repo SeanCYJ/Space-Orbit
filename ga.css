@@ -13,6 +13,13 @@ body {
     position: absolute;
 } */
 
+#svg-distance-line-cont {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    z-index: 1;
+}
+
 #planet0 {
     position: absolute;
     top: 50px;
@@ -24,7 +31,7 @@ body {
     offset-path: path('M153 20.89c0-45.88-74.95 0-74.95 0S.5,66.76.5 20.89s77.54 0 77.54 0S153 66.76 153 20.89Z');
     offset-distance: 0%;
     z-index: 1;
-    box-shadow: black -3px -3px 3px;
+    /* box-shadow: black -3px -3px 3px; */
 }
 
 #planet1 {
@@ -38,7 +45,7 @@ body {
     offset-path: path('M153 20.89c0-45.88-74.95 0-74.95 0S.5,66.76.5 20.89s77.54 0 77.54 0S153 66.76 153 20.89Z');
     offset-distance: 0%;
     z-index: 1;
-    box-shadow: black -3px -3px 5px;
+    /* box-shadow: black -3px -3px 5px; */
 }
 
 #planet2 {
@@ -52,7 +59,7 @@ body {
     offset-path: path('M153 20.89c0-45.88-74.95 0-74.95 0S.5,66.76.5 20.89s77.54 0 77.54 0S153 66.76 153 20.89Z');
     offset-distance: 0%;
     z-index: 1;
-    box-shadow: black -3px -3px 10px;
+    /* box-shadow: black -3px -3px 10px; */
 }
 
 #sketch-holder {

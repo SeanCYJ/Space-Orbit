@@ -110,6 +110,8 @@ function draw() {
 
   car.update();
 
+  car.updateGravity($('#planet2').offset().left + ($('#planet2').width()/2), $('#planet2').offset().top + ($('#planet2').width()/2), trail.length > 30 ? trail[30].position.x - 15 : 0, trail.length > 30 ? trail[30].position.y - 15 : 0);
+
   // Change car colour when drifting
   let nowDrifting = car.isDrift()
   if(nowDrifting) {
@@ -177,9 +179,14 @@ function draw() {
     $("#spacecraft-icon").css({ 'transform': 'rotate(' + ((car.angle)/Math.PI)*180 + 'deg)'});
     if(trail.length > 30){
         for (let i=0; i < 3; i++){
-        planetDis[i] = Math.sqrt(Math.pow(Math.abs(trail[30].position.y - $('#planet' + i).offset().top),2) + 
-            Math.pow(Math.abs(trail[30].position.x - $('#planet' + i).offset().left),2))
-    
+            planetDis[i] = Math.sqrt(Math.pow(Math.abs(trail[30].position.y - $('#planet' + i).offset().top),2) + 
+            Math.pow(Math.abs(trail[30].position.x - $('#planet' + i).offset().left),2));
+
+            $("#line" + i).attr("x1", trail[30].position.x);
+            $("#line" + i).attr("y1", trail[30].position.y);
+            $("#line" + i).attr("x2", $('#planet' + i).offset().left + ($('#planet' + i).width()/2));
+            $("#line" + i).attr("y2", $('#planet' + i).offset().top + ($('#planet' + i).height()/2));
+            $("#line" + i).attr("stroke", planetDis[i] < $('#planet' + i).width() ? "red" :  (planetDis[i] < $('#planet' + i).width()*2 ? "yellow" : "green"));
         }
         console.log(planetDis);
     }

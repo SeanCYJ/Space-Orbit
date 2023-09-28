@@ -101,7 +101,7 @@ class Car {
         this.turnRate = this.turnRateDynamic;
         this.isDrifting = true;
       }
-    //   bodyFixedDrag = createVector(vB.x * -this.gripDynamic, vB.y * 0.05);
+      //   bodyFixedDrag = createVector(vB.x * -this.gripDynamic, vB.y * 0.05);
         bodyFixedDrag = createVector(0.0, 0.0);
   
       // Rotate body fixed forces into world fixed and add to acceleration
@@ -121,7 +121,8 @@ class Car {
    * Rotation Matrices
    *   Rotate a vector from one frame of reference to the other.
    ******************************************************************************/
-  
+    
+
     // Body to world rotation
     vectBodyToWorld(vect, ang) {
       let v = vect.copy();
@@ -140,6 +141,18 @@ class Car {
         v.x * sin(ang) - v.y * cos(ang)
       );
       return vn;
+    }
+
+
+    // Gravity Orbit Effects
+    updateGravity(planetX, planetY, scX, scY) {
+      let vectorGX = -(scX - planetX);
+      let vectorGY = -(scY - planetY);
+      let bodyAccG = createVector(
+        (0.1/vectorGX), 
+        (0.1/vectorGY)
+      );
+      this.a.add(bodyAccG); 
     }
   
 }
