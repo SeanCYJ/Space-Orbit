@@ -84,9 +84,9 @@ function orbitC() {
     );
 }
 
-orbitA();
-orbitB();
-orbitC();
+// orbitA();
+// orbitB();
+// orbitC();
 
 
 
@@ -108,9 +108,9 @@ function draw() {
     let c = color(0, 0, 255);
     background(c);
 
-  car.update();
+  car.update($('#planet2').offset().left + ($('#planet2').width()/2), $('#planet2').offset().top + ($('#planet2').width()/2), car.d.x, car.d.y);
 
-  car.updateGravity($('#planet2').offset().left + ($('#planet2').width()/2), $('#planet2').offset().top + ($('#planet2').width()/2), trail.length > 30 ? trail[30].position.x - 15 : 0, trail.length > 30 ? trail[30].position.y - 15 : 0);
+//   car.updateGravity();
 
   // Change car colour when drifting
   let nowDrifting = car.isDrift()
@@ -188,7 +188,7 @@ function draw() {
             $("#line" + i).attr("y2", $('#planet' + i).offset().top + ($('#planet' + i).height()/2));
             $("#line" + i).attr("stroke", planetDis[i] < $('#planet' + i).width() ? "red" :  (planetDis[i] < $('#planet' + i).width()*2 ? "yellow" : "green"));
         }
-        console.log(planetDis);
+        // console.log(planetDis);
     }
 }
 

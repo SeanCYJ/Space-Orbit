@@ -53,12 +53,12 @@ class Car {
         push(); 
         translate(this.d.x, this.d.y); rotate(this.angle);
         stroke(0); strokeWeight(1); fill(color(127, 255, 212));
-        // rect(0,0, this.w, this.l); // Car body
-        // rect(0, this.l/2, 4,4);    // Indicate front side
+        rect(0,0, this.w, this.l); // Car body
+        rect(0, this.l/2, 4,4);    // Indicate front side
         pop();
     }
   
-    update() {
+    update(planetX, planetY, scX, scY) {
       // Add input forces
       if (keyIsPressed) {
         // ACCELERATING (BODY-FIXED to WORLD)
@@ -81,6 +81,25 @@ class Car {
           this.angle += this.turnRate;
         }
       }
+
+      // Planet's Gravity
+      let vectorGX = (scX - planetX);
+      let vectorGY = (scY - planetY);
+      // let bodyAccG = createVector(
+      //   (0.1/vectorGX), 
+      //   (0.1/vectorGY)
+      // );
+      let bodyAccG = createVector(
+        0.0, 
+        0.01
+      );
+
+      //##################################################################################
+      //#################### ERROR #######################################################
+      //#################################################################################
+      let worldAccG = this.vectBodyToWorld(bodyAccG,  vectorGX/vectorGY > 0? Math.atan(vectorGX/vectorGY) : Math.atan(vectorGX/vectorGY)-Math.PI);
+      // ################################################################################
+      this.a.add(worldAccG); 
   
   
       // Car steering and drifting physics
@@ -107,6 +126,8 @@ class Car {
       // Rotate body fixed forces into world fixed and add to acceleration
       let worldFixedDrag = this.vectBodyToWorld(bodyFixedDrag, this.angle)
       this.a.add(worldFixedDrag.div(this.m)); // Include inertia
+
+
   
       // Physics Engine
       this.angle = this.angle % TWO_PI; // Restrict angle to one revolution
@@ -145,14 +166,17 @@ class Car {
 
 
     // Gravity Orbit Effects
-    updateGravity(planetX, planetY, scX, scY) {
-      let vectorGX = -(scX - planetX);
-      let vectorGY = -(scY - planetY);
-      let bodyAccG = createVector(
-        (0.1/vectorGX), 
-        (0.1/vectorGY)
-      );
-      this.a.add(bodyAccG); 
-    }
+    // updateGravity(planetX, planetY, scX, scY) {
+    //   let vectorGX = -(scX - planetX);
+    //   let vectorGY = -(scY - planetY);
+    //   let bodyAccG = createVector(
+    //     (0.1/vectorGX), 
+    //     (0.1/vectorGY)
+    //   );
+    //   this.a.add(bodyAccG); 
+    //   this.v.add(this.a);
+    //   this.d.add(this.v);
+    //   this.a = createVector(0,0); // Reset acceleration for next frame
+    // }
   
 }
