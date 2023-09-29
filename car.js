@@ -89,16 +89,22 @@ class Car {
       //   (0.1/vectorGX), 
       //   (0.1/vectorGY)
       // );
+      // this.a.add(bodyAccG);
       let bodyAccG = createVector(
         0.0, 
-        0.01
+        0.02
       );
 
-      //##################################################################################
-      //#################### ERROR #######################################################
-      //#################################################################################
-      let worldAccG = this.vectBodyToWorld(bodyAccG,  vectorGX/vectorGY > 0? Math.atan(vectorGX/vectorGY) : Math.atan(vectorGX/vectorGY)-Math.PI);
-      // ################################################################################
+      let radG = 0;
+      if ((vectorGX < 0 && vectorGY < 0) || (vectorGX > 0 && vectorGY < 0)) {
+        radG = -(Math.atan(vectorGX/vectorGY));
+      } else if (vectorGX < 0 && vectorGY > 0) {
+        radG = -(Math.atan(vectorGX/vectorGY) + Math.PI);
+      } else if (vectorGX > 0 && vectorGY > 0) {
+        radG = -(Math.atan(vectorGX/vectorGY) - Math.PI);
+      }
+      let worldAccG = this.vectBodyToWorld(bodyAccG,  radG);
+
       this.a.add(worldAccG); 
   
   

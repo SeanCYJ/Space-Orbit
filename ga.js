@@ -84,9 +84,9 @@ function orbitC() {
     );
 }
 
-// orbitA();
-// orbitB();
-// orbitC();
+orbitA();
+orbitB();
+orbitC();
 
 
 
