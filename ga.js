@@ -24,7 +24,7 @@ function orbitA() {
             offsetDistance: "99.9%",
         }, 
         { 
-            duration: 30000,
+            duration: 60000,
             easing: "linear",
             step: function() {
                 var offset = $("#planet0").offset();
@@ -46,7 +46,7 @@ function orbitB() {
             offsetDistance: "99.9%",
         }, 
         { 
-            duration: 30000,
+            duration: 60000,
             easing: "linear",
             step: function() {
                 var offset = $("#planet1").offset();
@@ -68,7 +68,7 @@ function orbitC() {
             offsetDistance: "99.9%",
         }, 
         { 
-            duration: 30000,
+            duration: 60000,
             easing: "linear",
             step: function() {
                 var offset = $("#planet2").offset();
@@ -95,7 +95,7 @@ let trail = []; // Leave a trail behind the car
 const TRAIL_LENGTH = 50;
 
 function setup() {
-    let canvas = createCanvas(450,300);
+    let canvas = createCanvas(450,350);
     canvas.parent('sketch-holder');
     // noCanvas();
     frameRate(24);
@@ -105,7 +105,7 @@ function setup() {
 
 function draw() {
     var planetDis=[];
-    let c = color(0, 0, 255);
+    let c = color(0, 50, 96);
     background(c);
 
   car.update($('#planet2').offset().left + ($('#planet2').width()/2), $('#planet2').offset().top + ($('#planet2').width()/2), car.d.x, car.d.y);

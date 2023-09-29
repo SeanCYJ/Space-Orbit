@@ -10,8 +10,8 @@ class Car {
       this.turnRateStatic = 0.08;            // The normal turning-rate (static friction => not sliding)
       this.turnRateDynamic = 0.08;          // The turning-rate when drifting
       this.turnRate = this.turnRateStatic;  // initialise turn-rate
-      this.gripStatic = 0.001;                  // sliding friction while gripping
-      this.gripDynamic = 0.001;               // sliding friction while drifting
+      this.gripStatic = 0.05;                  // sliding friction while gripping
+      this.gripDynamic = 0.05;               // sliding friction while drifting
       this.DRIFT_CONSTANT = 5;              // sets the x-velocity threshold for no-drift <=> drift. Lower = drift sooner
   
       // Physical properties
@@ -127,7 +127,7 @@ class Car {
         this.isDrifting = true;
       }
       //   bodyFixedDrag = createVector(vB.x * -this.gripDynamic, vB.y * 0.05);
-        bodyFixedDrag = createVector(0.0, 0.0);
+        bodyFixedDrag = createVector(0.005, 0.005);
   
       // Rotate body fixed forces into world fixed and add to acceleration
       let worldFixedDrag = this.vectBodyToWorld(bodyFixedDrag, this.angle)
