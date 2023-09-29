@@ -108,7 +108,13 @@ function draw() {
     let c = color(0, 50, 96);
     background(c);
 
-  car.update($('#planet2').offset().left + ($('#planet2').width()/2), $('#planet2').offset().top + ($('#planet2').width()/2), car.d.x, car.d.y);
+    // let planetX = [$('#planet0').offset().left + ($('#planet0').width()/2), $('#planet1').offset().left + ($('#planet1').width()/2), $('#planet2').offset().left + ($('#planet2').width()/2)];
+    // let planetY = [$('#planet0').offset().top + ($('#planet0').width()/2), $('#planet1').offset().top + ($('#planet1').width()/2), $('#planet2').offset().top + ($('#planet2').width()/2)]
+
+    let planetX = [$('#planet0').offset().left + ($('#planet0').width()/2)];
+    let planetY = [$('#planet0').offset().top + ($('#planet0').width()/2)];
+
+  car.update(planetX, planetY, car.d.x, car.d.y);
 
 //   car.updateGravity();
 
@@ -170,7 +176,7 @@ function draw() {
     $("#spacecraft").css({top: (trail.length > 30 ? trail[30].position.y - 15 + "px" : 0), left: (trail.length > 30 ? trail[30].position.x - 15 + "px" : 0), position:'relative'});
     $("#spacecraft-icon").css({ 'transform': 'rotate(' + ((car.angle)/Math.PI)*180 + 'deg)'});
     if(trail.length > 30){
-        for (let i=0; i < 3; i++){
+        for (let i=0; i < 1; i++){
             planetDis[i] = Math.sqrt(Math.pow(Math.abs(trail[30].position.y - $('#planet' + i).offset().top),2) + 
             Math.pow(Math.abs(trail[30].position.x - $('#planet' + i).offset().left),2));
 

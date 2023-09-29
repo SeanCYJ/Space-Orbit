@@ -53,8 +53,8 @@ class Car {
         push(); 
         translate(this.d.x, this.d.y); rotate(this.angle);
         stroke(0); strokeWeight(1); fill(color(127, 255, 212));
-        rect(0,0, this.w, this.l); // Car body
-        rect(0, this.l/2, 4,4);    // Indicate front side
+        // rect(0,0, this.w, this.l); // Car body
+        // rect(0, this.l/2, 4,4);    // Indicate front side
         pop();
     }
   
@@ -83,29 +83,37 @@ class Car {
       }
 
       // Planet's Gravity
-      let vectorGX = (scX - planetX);
-      let vectorGY = (scY - planetY);
-      // let bodyAccG = createVector(
-      //   (0.1/vectorGX), 
-      //   (0.1/vectorGY)
-      // );
-      // this.a.add(bodyAccG);
-      let bodyAccG = createVector(
-        0.0, 
-        0.02
-      );
+      
 
-      let radG = 0;
-      if ((vectorGX < 0 && vectorGY < 0) || (vectorGX > 0 && vectorGY < 0)) {
-        radG = -(Math.atan(vectorGX/vectorGY));
-      } else if (vectorGX < 0 && vectorGY > 0) {
-        radG = -(Math.atan(vectorGX/vectorGY) + Math.PI);
-      } else if (vectorGX > 0 && vectorGY > 0) {
-        radG = -(Math.atan(vectorGX/vectorGY) - Math.PI);
+
+      for (let i = 0; i < planetX.length; i++) {
+        let vectorGX = (scX - planetX[i]);
+        let vectorGY = (scY - planetY[i]);
+        // let bodyAccG = createVector(
+        //   (0.1/vectorGX), 
+        //   (0.1/vectorGY)
+        // );
+        // this.a.add(bodyAccG);
+        let bodyAccG = createVector(
+          0.0, 
+          0.02
+        );
+
+        let radG = 0;
+        if ((vectorGX < 0 && vectorGY < 0) || (vectorGX > 0 && vectorGY < 0)) {
+          radG = -(Math.atan(vectorGX/vectorGY));
+        } else if (vectorGX < 0 && vectorGY > 0) {
+          radG = -(Math.atan(vectorGX/vectorGY) + Math.PI);
+        } else if (vectorGX > 0 && vectorGY > 0) {
+          radG = -(Math.atan(vectorGX/vectorGY) - Math.PI);
+        }
+        let worldAccG = this.vectBodyToWorld(bodyAccG,  radG);
+
+        this.a.add(worldAccG); 
       }
-      let worldAccG = this.vectBodyToWorld(bodyAccG,  radG);
 
-      this.a.add(worldAccG); 
+
+
   
   
       // Car steering and drifting physics
