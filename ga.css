@@ -125,18 +125,19 @@ body {
 
 #Start-stop, #Restart {
     border: gray 0.2rem solid;
-    background-color: gray;
+    background-color: lightgray;
     border-radius: 0.5rem;
     margin: 0.5rem;
     padding: 0.5rem;
     font-size: 1rem;
     cursor: pointer;
     width: 6rem;
-    font-weight: bold;
+    font-weight: 400;
     /* box-shadow: black 5px 3px 0px; */
     /* transition: border ease-in 200ms; */
 }
 
 #Start-stop:hover,#Restart:hover {
     border: black 0.2rem solid;
+    font-weight: bold;
 }

@@ -152,27 +152,19 @@ function draw() {
 
   // Keep car onscreen. Car displacement (position) is stored in vector: car.d
   if(car.d.x > width){
-    car.d.x = 0;
-  } else if(car.d.x < 0) {
     car.d.x = width;
+  } else if(car.d.x < 0) {
+    car.d.x = 0;
   }
   if(car.d.y > height) {
-    car.d.y = 0;
-  } else if(car.d.y < 0) {
     car.d.y = height;
+  } else if(car.d.y < 0) {
+    car.d.y = 0;
   }
 
-//   $('#spacecraft').animate(
-//     {
-//         top: trail.length===11 ? trail[10].position.x : 0,
-//         left: trail.length===11 ? trail[10].position.y : 0
-//     },{
-//         duration: 100,
-//         easing: "linear"
-//     }
-//   )
+    // Keep max spped at 2
 
-    console.log(car.angle);
+    console.log(car.v);
 
     // Update spacecraft position using the ~middle of the trail to have both a predicted path and a travelled path
     $("#spacecraft").css({top: (trail.length > 30 ? trail[30].position.y - 15 + "px" : 0), left: (trail.length > 30 ? trail[30].position.x - 15 + "px" : 0), position:'relative'});
