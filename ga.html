@@ -4,6 +4,9 @@
     <script src="p5.js"></script>
     <script src="car.js"></script>
     <!-- <script src="pathAnimator.js"></script> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,500;0,700;0,900;1,100;1,300;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="ga.css">
 </head>
 
@@ -38,13 +41,14 @@
         <div id="controls">
             <button id="start-stop">Start</button>
             <!-- <button id="Restart">Restart</button> -->
-            <div></div>
-            <div></div>
+            <div id="fuel">Fuel: </div>
+            <div id="time">Time: </div>
         </div>
 
         <div id="game-over">
             Game Over
         </div>
+        <div id="game-over-bg"></div>
         <!-- <div class="circleContainer">
             <svg class="circle" width='450' height='450'>
               <circle  cx="225" cy="225" r="200" stroke="white" stroke-width="6" fill="none" stroke-dasharray="1256"  stroke-dashoffset="1256" />

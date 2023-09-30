@@ -1,4 +1,5 @@
-body {
+body {  
+    font-family: 'Pixelify Sans', cursive;
     height: 400px;
     width: 450px;
     overflow: hidden;
@@ -114,8 +115,10 @@ body {
     width: 100%;
     height: 50px;
     background-color: lightgrey;
-    z-index: 3;
+    z-index: 4;
     border-radius: 0.5rem 0.5rem 0rem 0rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 #defaultCanvas0 {
@@ -129,11 +132,12 @@ body {
     background-color: lightgray;
     border-radius: 0.5rem;
     margin: 0.5rem;
-    padding: 0.5rem;
-    font-size: 1rem;
+    padding: 0.2rem;
+    font-size: 1.2rem;
     cursor: pointer;
     width: 6rem;
-    font-weight: 400;
+    font-weight: 700;
+    font-family: 'Pixelify Sans', cursive;
     /* box-shadow: black 5px 3px 0px; */
     /* transition: border ease-in 200ms; */
 }
@@ -148,11 +152,28 @@ body {
     display: none;
     justify-content: center;
     padding-top: 10rem;
-    z-index: 2;
-    background-color: darkolivegreen;
-    opacity: 50%;
+    z-index: 3;
     width: 100%;
     height: 100%;
     font-size: 3rem;
     color: whitesmoke;
+}
+
+#game-over-bg {
+    position: absolute;
+    display: none;
+    justify-content: center;
+    padding-top: 10rem;
+    z-index: 2;
+    background-color: darkolivegreen;
+    opacity: 80%;
+    backdrop-filter: blur(20px);
+    width: 100%;
+    height: 100%;
+}
+
+#fuel, #time {
+    margin-top: 0.5rem;
+    font-weight: 600;
+    font-size: 1.2rem;
 }

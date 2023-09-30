@@ -16,6 +16,7 @@ var crashed = false;
 
 function start() {
     $('#game-over').css('display', 'none');
+    $('#game-over-bg').css('display', 'none');
     console.log("pressed");
     trail = [];
     setup();
@@ -187,8 +188,9 @@ function draw() {
             Math.pow(Math.abs(trail[30].position.x - planetX[i]),2));
 
             // console.log(planetDis[i]);
-            if(planetDis[i] < 50) {
+            if(planetDis[i] < 45) {
                 $('#game-over').css('display', 'flex');
+                $('#game-over-bg').css('display', 'flex');
                 crashed = true;
                 noLoop();
 
