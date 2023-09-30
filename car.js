@@ -24,6 +24,8 @@ class Car {
       this.l = 30;                          // length of body (for animation)
       this.f = 0.05;                        // Acceleration / braking force
       this.isDrifting = false;              // Drift state
+
+      this.fuel = 100.00;                       // fuel
   
       // Colour variable - in an example the car colour changes when it loses traction
       this.col = color(255,255,255);
@@ -45,6 +47,11 @@ class Car {
     isDrift() {
       return this.isDrifting;
     }
+
+    // fuel burn
+    fuelAmount() {
+      return this.fuel;
+    }
   
   
     show() {
@@ -63,9 +70,11 @@ class Car {
       if (keyIsPressed) {
         // ACCELERATING (BODY-FIXED to WORLD)
         if (keyIsDown(UP_ARROW)) {
-          let bodyAcc = createVector(0, this.f);
+          let bodyAcc = this.fuel > 0 ? createVector(0, this.f) : createVector(0, 0);
           let worldAcc = this.vectBodyToWorld(bodyAcc, this.angle);
+          this.fuel -= 0.5;
           this.a.add(worldAcc);
+
         }
         // BRAKING (BODY-FIXED TO WORLD)
         // if (keyIsDown(DOWN_ARROW)) {

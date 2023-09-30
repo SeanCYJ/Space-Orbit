@@ -131,11 +131,12 @@ body {
     border: gray 0.2rem solid;
     background-color: lightgray;
     border-radius: 0.5rem;
-    margin: 0.5rem;
-    padding: 0.2rem;
+    margin: 0.3rem;
+    padding: 0rem;
     font-size: 1.2rem;
     cursor: pointer;
     width: 6rem;
+    height: 2.5rem;
     font-weight: 700;
     font-family: 'Pixelify Sans', cursive;
     /* box-shadow: black 5px 3px 0px; */
@@ -150,12 +151,13 @@ body {
 #game-over {
     position: absolute;
     display: none;
+    grid-template-rows: 1rem 3rem 5rem;
     justify-content: center;
     padding-top: 10rem;
     z-index: 3;
     width: 100%;
     height: 100%;
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: whitesmoke;
 }
 
@@ -173,7 +175,38 @@ body {
 }
 
 #fuel, #time {
-    margin-top: 0.5rem;
+    margin-top: 0.3rem;
     font-weight: 600;
     font-size: 1.2rem;
+}
+
+#fuel-bar {
+    color: green;
+    font-size: 2.5rem;
+    line-height: 0.8;
+}
+
+#time-info {
+    line-height: 0.8;
+}
+
+#hs-text {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 1rem;
+}
+
+#total-time, #high-score {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+#total-time {
+    padding-top: 2.5rem;
+}
+
+#high-score {
+    font-size: 2rem;
 }

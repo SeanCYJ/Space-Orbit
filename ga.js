@@ -9,6 +9,47 @@
 //     $('body').append(x_val);
 // });
 
+
+var startTime; // to keep track of the start time
+var stopwatchInterval; // to keep track of the interval
+var elapsedPausedTime = 0; // to keep track of the elapsed time while stopped
+
+function startStopwatch() {
+  if (!stopwatchInterval) {
+    startTime = new Date().getTime() - elapsedPausedTime; // get the starting time by subtracting the elapsed paused time from the current time
+    stopwatchInterval = setInterval(updateStopwatch, 1000); // update every second
+  }
+}
+
+function stopStopwatch() {
+  clearInterval(stopwatchInterval); // stop the interval
+  elapsedPausedTime = new Date().getTime() - startTime; // calculate elapsed paused time
+  stopwatchInterval = null; // reset the interval variable
+}
+
+function resetStopwatch() {
+  stopStopwatch(); // stop the interval
+  elapsedPausedTime = 0; // reset the elapsed paused time variable
+  document.getElementById("time-info").innerHTML = "T 00:00:00"; // reset the display
+}
+
+function updateStopwatch() {
+    var currentTime = new Date().getTime(); // get current time in milliseconds
+    var elapsedTime = currentTime - startTime; // calculate elapsed time in milliseconds
+    var seconds = Math.floor(elapsedTime / 1000) % 60; // calculate seconds
+    var minutes = Math.floor(elapsedTime / 1000 / 60) % 60; // calculate minutes
+    var hours = Math.floor(elapsedTime / 1000 / 60 / 60); // calculate hours
+    var displayTime = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds); // format display time
+    document.getElementById("time-info").innerHTML = "T+" + displayTime; // update the display
+    document.getElementById('total-time').innerHTML = displayTime;
+}
+  
+function pad(number) {
+    // add a leading zero if the number is less than 10
+    return (number < 10 ? "0" : "") + number;
+}
+
+
 let car;
 let trail = []; // Leave a trail behind the car
 const TRAIL_LENGTH = 50;
@@ -19,6 +60,8 @@ function start() {
     $('#game-over-bg').css('display', 'none');
     console.log("pressed");
     trail = [];
+    resetStopwatch();
+    startStopwatch();
     setup();
     loop();
 }
@@ -122,7 +165,12 @@ function draw() {
     let planetX = [$('#planet0').offset().left + ($('#planet0').width()/2)];
     let planetY = [$('#planet0').offset().top + ($('#planet0').width()/2)];
 
-  car.update(planetX, planetY, car.d.x, car.d.y);
+    car.update(planetX, planetY, car.d.x, car.d.y);
+    
+    //update fuel lvl
+    let fuelBar = "*";
+    $('#fuel-bar').html(fuelBar.repeat(car.fuel > 0 ? Math.round(car.fuel/10) : 0));
+    console.log(car.fuel);
 
 //   car.updateGravity();
 
@@ -184,15 +232,17 @@ function draw() {
     $("#spacecraft-icon").css({ 'transform': 'rotate(' + ((car.angle)/Math.PI)*180 + 'deg)'});
     if(trail.length > 30){
         for (let i=0; i < 1; i++){
-            planetDis[i] = Math.sqrt(Math.pow(Math.abs(trail[30].position.y - planetY[i]),2) + 
-            Math.pow(Math.abs(trail[30].position.x - planetX[i]),2));
+            let spacecraftPos = $('#spacecraft')[0].getBoundingClientRect();
+            planetDis[i] = Math.sqrt(Math.pow(Math.abs(spacecraftPos.top - planetY[i]),2) + 
+            Math.pow(Math.abs(spacecraftPos.left - planetX[i]),2));
 
             // console.log(planetDis[i]);
-            if(planetDis[i] < 45) {
-                $('#game-over').css('display', 'flex');
+            if(planetDis[i] < 50) {
+                $('#game-over').css('display', 'grid');
                 $('#game-over-bg').css('display', 'flex');
                 crashed = true;
                 noLoop();
+                stopStopwatch();
 
                 // console.log(planetDis[i]);
             }
