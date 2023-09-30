@@ -9,12 +9,20 @@
 //     $('body').append(x_val);
 // });
 
+let car;
+let trail = []; // Leave a trail behind the car
+const TRAIL_LENGTH = 50;
+var crashed = false;
 
+function start() {
+    $('#game-over').css('display', 'none');
+    console.log("pressed");
+    trail = [];
+    setup();
+    loop();
+}
 
-$('#ButtonAnimation').on('click', function() {  
-    // $('body').append(pathLength);
-});
-
+document.getElementById("start-stop").addEventListener("click", start);
 
 var oriOffset = $('#planet0').offset();
 
@@ -84,15 +92,14 @@ function orbitC() {
     );
 }
 
+if (crashed) {
+    $('#planet0').stop();
+}
+
 orbitA();
-orbitB();
-orbitC();
+// orbitB();
+// orbitC();
 
-
-
-let car;
-let trail = []; // Leave a trail behind the car
-const TRAIL_LENGTH = 50;
 
 function setup() {
     let canvas = createCanvas(450,350);
@@ -170,15 +177,23 @@ function draw() {
 
     // Keep max spped at 2
 
-    console.log(car.v);
 
     // Update spacecraft position using the ~middle of the trail to have both a predicted path and a travelled path
     $("#spacecraft").css({top: (trail.length > 30 ? trail[30].position.y - 15 + "px" : 0), left: (trail.length > 30 ? trail[30].position.x - 15 + "px" : 0), position:'relative'});
     $("#spacecraft-icon").css({ 'transform': 'rotate(' + ((car.angle)/Math.PI)*180 + 'deg)'});
     if(trail.length > 30){
         for (let i=0; i < 1; i++){
-            planetDis[i] = Math.sqrt(Math.pow(Math.abs(trail[30].position.y - $('#planet' + i).offset().top),2) + 
-            Math.pow(Math.abs(trail[30].position.x - $('#planet' + i).offset().left),2));
+            planetDis[i] = Math.sqrt(Math.pow(Math.abs(trail[30].position.y - planetY[i]),2) + 
+            Math.pow(Math.abs(trail[30].position.x - planetX[i]),2));
+
+            // console.log(planetDis[i]);
+            if(planetDis[i] < 50) {
+                $('#game-over').css('display', 'flex');
+                crashed = true;
+                noLoop();
+
+                // console.log(planetDis[i]);
+            }
 
             $("#line" + i).attr("x1", trail[30].position.x);
             $("#line" + i).attr("y1", trail[30].position.y);
@@ -199,3 +214,4 @@ window.addEventListener("keydown", (key) => {
         key.preventDefault();
     }
 }, false);
+

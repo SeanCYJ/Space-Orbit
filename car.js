@@ -113,6 +113,13 @@ class Car {
       }
 
 
+      // s/c has crashed into planet
+      // if(Math.abs(scX - planetX[0]) < 50 || Math.abs(scY - planetY[0]) < 50) {
+      //   console.log(Math.abs(scX - planetX[0]));
+      //   console.log(Math.abs(scY - planetY[0]));
+      //   $('#game-over').css('display', 'flex');
+      //   debugger;
+      // }
 
   
   

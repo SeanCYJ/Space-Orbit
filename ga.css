@@ -114,7 +114,7 @@ body {
     width: 100%;
     height: 50px;
     background-color: lightgrey;
-    z-index: 1;
+    z-index: 3;
     border-radius: 0.5rem 0.5rem 0rem 0rem;
 }
 
@@ -124,7 +124,7 @@ body {
 }
 
 
-#Start-stop, #Restart {
+#start-stop, #restart {
     border: gray 0.2rem solid;
     background-color: lightgray;
     border-radius: 0.5rem;
@@ -138,7 +138,21 @@ body {
     /* transition: border ease-in 200ms; */
 }
 
-#Start-stop:hover,#Restart:hover {
+#start-stop:hover,#restart:hover {
     border: black 0.2rem solid;
     font-weight: bold;
+}
+
+#game-over {
+    position: absolute;
+    display: none;
+    justify-content: center;
+    padding-top: 10rem;
+    z-index: 2;
+    background-color: darkolivegreen;
+    opacity: 50%;
+    width: 100%;
+    height: 100%;
+    font-size: 3rem;
+    color: whitesmoke;
 }
