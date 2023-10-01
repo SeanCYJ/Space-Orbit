@@ -64,7 +64,7 @@ function localStor() {
     if(localStorPerm) {
         localStorPerm = false;
         localStorage.clear();
-        $('#local-storage').text('🗑️');
+        $('#local-storage').text('delete');
         $('#msg').text("High score not stored");
         $('#msg').css('display', 'flex');
         setTimeout(function(){
@@ -72,7 +72,7 @@ function localStor() {
         }, 3000);
     } else {
         localStorPerm = true;
-        $('#local-storage').text('💾');
+        $('#local-storage').text('save');
         $('#msg').text("Using local-storage for high score");
         $('#msg').css('display', 'flex');
         setTimeout(function(){
@@ -89,14 +89,14 @@ function resetGame() {
     noLoop();
     stopStopwatch();
     resetStopwatch();
-    $('#msg').text("Rebooting...wiping all high scores \n not using local storage");
+    $('#msg').text("Rebooting...wiping all high scores");
     $('#msg').css('display', 'flex');
     $('#msg').css('background-color', 'black');
     setTimeout(function(){
         $('#msg').css('display', 'none');
         $('#msg').css('background-color', '');
         start();
-    }, 3500);
+    }, 4500);
     
 }
 
@@ -119,6 +119,22 @@ function highScore(timeSec) {
     }
 }
 
+// generate random stars' location
+function starLoc() {
+    for (let i = 0; i < 10; i++) {
+        $('#star' + i).css('top', String(Math.random()*351) + 'px');
+        $('#star' + i).css('left', String(Math.random()*451) + 'px');
+    }
+}
+
+// move stars to create perspective
+function starMovement() {
+    for (let i = 0; i < 10; i++) {
+        $('#star' + i).css('top', String($('#star' + i).offset().top + (car.a.y * 0.1)) + 'px');
+        $('#star' + i).css('left', String($('#star' + i).offset().left + (car.a.x * 0.1)) + 'px');
+    }
+}
+
 let car;
 let trail = []; // Leave a trail behind the car
 const TRAIL_LENGTH = 50;
@@ -129,6 +145,7 @@ function start() {
     $('#game-over-bg').css('display', 'none');
     console.log("pressed");
     trail = [];
+    starLoc();
     resetStopwatch();
     startStopwatch();
     setup();
@@ -213,6 +230,7 @@ if (crashed) {
 
 
 resetStopwatch();
+starLoc();
 startStopwatch();
 orbitA();
 // orbitB();
@@ -240,6 +258,9 @@ function draw() {
     let planetY = [$('#planet0').offset().top + ($('#planet0').width()/2)];
 
     car.update(planetX, planetY, car.d.x, car.d.y);
+    starMovement();
+
+    //update star pos
     
     //update fuel lvl
     let fuelBar = "*";
@@ -312,7 +333,7 @@ function draw() {
             Math.pow(Math.abs(spacecraftPos.left - planetX[i]),2));
 
             // console.log(planetDis[i]);
-            if(planetDis[i] < 50) {
+            if(planetDis[i] < 45) {
                 $('#game-over').css('display', 'grid');
                 $('#game-over-bg').css('display', 'flex');
                 crashed = true;
