@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+    <meta charset="UTF-8">
     <script src="jquery-3.7.1.min.js"></script>
     <script src="p5.js"></script>
     <script src="car.js"></script>
@@ -47,14 +48,18 @@
             <div id="time">Time: 
                 <div id="time-info"></div>
             </div>
+            <div id="local-storage">🗑️</div>
+            <div id="reset-game">🔌</div>
         </div>
 
         <div id="game-over">
             <div id="hs-text">HIGH SCORE</div>
-            <div id="high-score">00:01:00</div>
+            <div id="high-score">00:00:00</div>
             <div id="total-time">00:00:00</div>
         </div>
         <div id="game-over-bg"></div>
+        <div id="msg">
+        </div>
         <!-- <div class="circleContainer">
             <svg class="circle" width='450' height='450'>
               <circle  cx="225" cy="225" r="200" stroke="white" stroke-width="6" fill="none" stroke-dasharray="1256"  stroke-dashoffset="1256" />

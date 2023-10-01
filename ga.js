@@ -49,6 +49,75 @@ function pad(number) {
     return (number < 10 ? "0" : "") + number;
 }
 
+function convertDisplayTime(time) {
+    var seconds = Math.floor(time / 1000) % 60; // calculate seconds
+    var minutes = Math.floor(time / 1000 / 60) % 60; // calculate minutes
+    var hours = Math.floor(time / 1000 / 60 / 60); // calculate hours
+    var displayTime = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
+    return displayTime;
+}
+
+// set local storage permission
+var localStorPerm = false;
+
+function localStor() {
+    if(localStorPerm) {
+        localStorPerm = false;
+        localStorage.clear();
+        $('#local-storage').text('🗑️');
+        $('#msg').text("High score not stored");
+        $('#msg').css('display', 'flex');
+        setTimeout(function(){
+            $('#msg').css('display', 'none');
+        }, 3000);
+    } else {
+        localStorPerm = true;
+        $('#local-storage').text('💾');
+        $('#msg').text("Using local-storage for high score");
+        $('#msg').css('display', 'flex');
+        setTimeout(function(){
+            $('#msg').css('display', 'none');
+        }, 3000);
+    }
+}
+
+// reset game machine
+function resetGame() {
+    if(localStorPerm) {
+        localStorage.clear();
+    }  
+    noLoop();
+    stopStopwatch();
+    resetStopwatch();
+    $('#msg').text("Rebooting...wiping all high scores \n not using local storage");
+    $('#msg').css('display', 'flex');
+    $('#msg').css('background-color', 'black');
+    setTimeout(function(){
+        $('#msg').css('display', 'none');
+        $('#msg').css('background-color', '');
+        start();
+    }, 3500);
+    
+}
+
+// set highscore
+function highScore(timeSec) {
+    let time = convertDisplayTime(timeSec);
+    if(localStorPerm) {
+        if (localStorage.getItem('highScore')) {
+            let previousHS = localStorage.getItem('highScore');
+            if (time > previousHS) {
+             localStorage.setItem('highScore', time);   
+             $('#high-score').text(time);
+            } else {
+                $('#high-score').text(previousHS);
+            }
+        } else {
+            localStorage.setItem('highScore', time);
+            $('#high-score').text(time);
+        }
+    }
+}
 
 let car;
 let trail = []; // Leave a trail behind the car
@@ -67,6 +136,8 @@ function start() {
 }
 
 document.getElementById("start-stop").addEventListener("click", start);
+document.getElementById("local-storage").addEventListener("click", localStor);
+document.getElementById("reset-game").addEventListener("click", resetGame);
 
 var oriOffset = $('#planet0').offset();
 
@@ -140,6 +211,9 @@ if (crashed) {
     $('#planet0').stop();
 }
 
+
+resetStopwatch();
+startStopwatch();
 orbitA();
 // orbitB();
 // orbitC();
@@ -170,6 +244,7 @@ function draw() {
     //update fuel lvl
     let fuelBar = "*";
     $('#fuel-bar').html(fuelBar.repeat(car.fuel > 0 ? Math.round(car.fuel/10) : 0));
+    $('#fuel-bar').css('color', car.fuel > 50 ? 'green' : car.fuel > 20 ? 'yellow' : 'red');
     console.log(car.fuel);
 
 //   car.updateGravity();
@@ -228,7 +303,7 @@ function draw() {
 
 
     // Update spacecraft position using the ~middle of the trail to have both a predicted path and a travelled path
-    $("#spacecraft").css({top: (trail.length > 30 ? trail[30].position.y - 15 + "px" : 0), left: (trail.length > 30 ? trail[30].position.x - 15 + "px" : 0), position:'relative'});
+    $("#spacecraft").css({top: (trail.length > 30 ? trail[30].position.y - 15 + "px" : 0), left: (trail.length > 30 ? trail[30].position.x - 15 + "px" : 0), position:'relative', display: trail.length > 30 ? "block" : "none"});
     $("#spacecraft-icon").css({ 'transform': 'rotate(' + ((car.angle)/Math.PI)*180 + 'deg)'});
     if(trail.length > 30){
         for (let i=0; i < 1; i++){
@@ -243,6 +318,7 @@ function draw() {
                 crashed = true;
                 noLoop();
                 stopStopwatch();
+                highScore(elapsedPausedTime);
 
                 // console.log(planetDis[i]);
             }
