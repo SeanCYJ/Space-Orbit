@@ -121,7 +121,7 @@ function highScore(timeSec) {
 
 // generate random stars' location
 function starLoc() {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 19; i++) {
         $('#star' + i).css('top', String(Math.random()*351) + 'px');
         $('#star' + i).css('left', String(Math.random()*451) + 'px');
     }
@@ -129,7 +129,7 @@ function starLoc() {
 
 // move stars to create perspective
 function starMovement() {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 15; i++) {
         $('#star' + i).css('top', String($('#star' + i).offset().top + (car.a.y * 0.1)) + 'px');
         $('#star' + i).css('left', String($('#star' + i).offset().left + (car.a.x * 0.1)) + 'px');
     }
@@ -258,7 +258,6 @@ function draw() {
     let planetY = [$('#planet0').offset().top + ($('#planet0').width()/2)];
 
     car.update(planetX, planetY, car.d.x, car.d.y);
-    starMovement();
 
     //update star pos
     
@@ -326,6 +325,9 @@ function draw() {
     // Update spacecraft position using the ~middle of the trail to have both a predicted path and a travelled path
     $("#spacecraft").css({top: (trail.length > 30 ? trail[30].position.y - 15 + "px" : 0), left: (trail.length > 30 ? trail[30].position.x - 15 + "px" : 0), position:'relative', display: trail.length > 30 ? "block" : "none"});
     $("#spacecraft-icon").css({ 'transform': 'rotate(' + ((car.angle)/Math.PI)*180 + 'deg)'});
+    $("#spacecraft-icon").attr('src', car.thrust ? 'Spacecraft-flame.png' : 'Spacecraft.png')
+    
+    
     if(trail.length > 30){
         for (let i=0; i < 1; i++){
             let spacecraftPos = $('#spacecraft')[0].getBoundingClientRect();

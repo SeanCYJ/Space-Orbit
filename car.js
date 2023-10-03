@@ -26,6 +26,7 @@ class Car {
       this.isDrifting = false;              // Drift state
 
       this.fuel = 100.00;                       // fuel
+      this.thrust = false;                      // thrust active
   
       // Colour variable - in an example the car colour changes when it loses traction
       this.col = color(255,255,255);
@@ -66,6 +67,7 @@ class Car {
     }
   
     update(planetX, planetY, scX, scY) {
+      this.thrust = false;
       // Add input forces
       if (keyIsPressed) {
         // ACCELERATING (BODY-FIXED to WORLD)
@@ -74,7 +76,7 @@ class Car {
           let worldAcc = this.vectBodyToWorld(bodyAcc, this.angle);
           this.fuel -= 0.5;
           this.a.add(worldAcc);
-
+          this.thrust = this.fuel > 0 ?  true : false;
         }
         // BRAKING (BODY-FIXED TO WORLD)
         // if (keyIsDown(DOWN_ARROW)) {
