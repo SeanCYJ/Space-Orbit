@@ -89,12 +89,15 @@ function resetGame() {
     noLoop();
     stopStopwatch();
     resetStopwatch();
+    ambientSound('stop');
+    clockSound('stop');
     $('#msg').text("Rebooting...wiping all high scores");
     $('#msg').css('display', 'flex');
     $('#msg').css('background-color', 'black');
     setTimeout(function(){
         $('#msg').css('display', 'none');
         $('#msg').css('background-color', '');
+        ambientSound('start');
         start();
     }, 4500);
     
@@ -135,6 +138,54 @@ function starMovement() {
     }
 }
 
+
+
+// start clock ticking sound
+function soundsLoaded() {
+    var n = 1;
+};
+
+
+var clockLoop = new SeamlessLoop();
+clockLoop.addUri('ticking-clock_1-27477.mp3', 15000, "sound1");
+var ambientLoop = new SeamlessLoop();
+ambientLoop.addUri('wandering-6394.mp3', 60000, 'sound1');
+var thrustLoop = new SeamlessLoop();
+thrustLoop.addUri('loopingthrust-95548.mp3', 2000, 'sound1');
+
+function clockSound(control) {
+    if (control === "start") {
+        clockLoop.start("sound1");
+        clockLoop.volume(0.5);
+    } else if (control === "stop") {
+        clockLoop.stop();
+    }
+}
+
+// start/stop ambient sound
+function ambientSound(control) {
+    if (control === "start") {
+        ambientLoop.start("sound1");
+        ambientLoop.volume(0.5);
+    } else if (control === "stop") {
+        ambientLoop.stop();
+    }
+}
+
+// start ambient sound
+function thrustSound(control) {
+    if (control) {
+        thrustLoop.start("sound1");
+        thrustLoop.volume(0.2);
+    } else {
+        try {
+            thrustLoop.stop();
+        } catch {}
+
+    }
+}
+
+
 let car;
 let trail = []; // Leave a trail behind the car
 const TRAIL_LENGTH = 50;
@@ -148,6 +199,7 @@ function start() {
     starLoc();
     resetStopwatch();
     startStopwatch();
+    clockSound('start');
     setup();
     loop();
 }
@@ -229,10 +281,13 @@ if (crashed) {
 }
 
 
+
+ambientSound('start');
 resetStopwatch();
 starLoc();
 startStopwatch();
 orbitA();
+clockSound('start');
 // orbitB();
 // orbitC();
 
@@ -325,7 +380,8 @@ function draw() {
     // Update spacecraft position using the ~middle of the trail to have both a predicted path and a travelled path
     $("#spacecraft").css({top: (trail.length > 30 ? trail[30].position.y - 15 + "px" : 0), left: (trail.length > 30 ? trail[30].position.x - 15 + "px" : 0), position:'relative', display: trail.length > 30 ? "block" : "none"});
     $("#spacecraft-icon").css({ 'transform': 'rotate(' + ((car.angle)/Math.PI)*180 + 'deg)'});
-    $("#spacecraft-icon").attr('src', car.thrust ? 'Spacecraft-flame.png' : 'Spacecraft.png')
+    $("#spacecraft-icon").attr('src', car.thrust ? 'Spacecraft-flame.png' : 'Spacecraft.png');
+    thrustSound(car.thrust);
     
     
     if(trail.length > 30){
@@ -336,6 +392,7 @@ function draw() {
 
             // console.log(planetDis[i]);
             if(planetDis[i] < 45) {
+                clockSound('stop');
                 $('#game-over').css('display', 'grid');
                 $('#game-over-bg').css('display', 'flex');
                 crashed = true;
