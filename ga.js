@@ -124,7 +124,7 @@ function highScore(timeSec) {
 
 // generate random stars' location
 function starLoc() {
-    for (let i = 0; i < 19; i++) {
+    for (let i = 0; i < 40; i++) {
         $('#star' + i).css('top', String(Math.random()*351) + 'px');
         $('#star' + i).css('left', String(Math.random()*451) + 'px');
     }
@@ -132,10 +132,8 @@ function starLoc() {
 
 // move stars to create perspective
 function starMovement() {
-    for (let i = 0; i < 15; i++) {
-        $('#star' + i).css('top', String($('#star' + i).offset().top + (car.a.y * 0.1)) + 'px');
-        $('#star' + i).css('left', String($('#star' + i).offset().left + (car.a.x * 0.1)) + 'px');
-    }
+    $('#background-stars').css('top', String((200 - car.d.y)*0.1) + 'px')
+    $('#background-stars').css('left', String((225 - car.d.x)*0.1) + 'px')
 }
 
 
@@ -315,6 +313,7 @@ function draw() {
     car.update(planetX, planetY, car.d.x, car.d.y);
 
     //update star pos
+    starMovement();
     
     //update fuel lvl
     let fuelBar = "*";

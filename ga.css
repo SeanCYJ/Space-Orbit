@@ -245,10 +245,11 @@ body {
     color: whitesmoke;
 }
 
-#background {
+#background-stars {
     position: absolute;
     width: 450px;
     height: 400px;
+    transition: all linear 200ms;
 }
 
 .stars {
