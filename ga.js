@@ -149,7 +149,7 @@ clockLoop.addUri('ticking-clock_1-27477.mp3', 15000, "sound1");
 var ambientLoop = new SeamlessLoop();
 ambientLoop.addUri('wandering-6394.mp3', 60000, 'sound1');
 var thrustLoop = new SeamlessLoop();
-thrustLoop.addUri('loopingthrust-95548.mp3', 2000, 'sound1');
+thrustLoop.addUri('computer-generated-wind-56299-[AudioTrimmer.com].mp3', 3000, 'sound1');
 
 function clockSound(control) {
     if (control === "start") {
@@ -380,7 +380,6 @@ function draw() {
     $("#spacecraft").css({top: (trail.length > 30 ? trail[30].position.y - 15 + "px" : 0), left: (trail.length > 30 ? trail[30].position.x - 15 + "px" : 0), position:'relative', display: trail.length > 30 ? "block" : "none"});
     $("#spacecraft-icon").css({ 'transform': 'rotate(' + ((car.angle)/Math.PI)*180 + 'deg)'});
     $("#spacecraft-icon").attr('src', car.thrust ? 'Spacecraft-flame.png' : 'Spacecraft.png');
-    thrustSound(car.thrust);
     
     
     if(trail.length > 30){
