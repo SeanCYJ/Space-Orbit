@@ -1,10 +1,10 @@
 {
-    "name": "GA",
-    "description": "Gravity Assist",
+    "name": "Space Orbit",
+    "description": "A space flight game.",
     "version": "1.0",
     "manifest_version": 3,
     "action": {
-      "default_popup": "ga.html",
-      "default_icon": "Planet.png"
+      "default_popup": "so.html",
+      "default_icon": "Spacecraft.png"
     }
 }
