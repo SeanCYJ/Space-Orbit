@@ -163,11 +163,11 @@ function soundsLoaded() {
 
 
 var clockLoop = new SeamlessLoop();
-clockLoop.addUri('ticking-clock_1-27477.mp3', 15000, "sound1");
+clockLoop.addUri('./assets/ticking-clock_1-27477.mp3', 15000, "sound1");
 var ambientLoop = new SeamlessLoop();
-ambientLoop.addUri('wandering-6394.mp3', 60000, 'sound1');
+ambientLoop.addUri('./assets/wandering-6394.mp3', 60000, 'sound1');
 var thrustLoop = new SeamlessLoop();
-thrustLoop.addUri('computer-generated-wind-56299-[AudioTrimmer.com].mp3', 3000, 'sound1');
+thrustLoop.addUri('./assets/computer-generated-wind-56299-[AudioTrimmer.com].mp3', 3000, 'sound1');
 
 function clockSound(control) {
     if (control === "start") {
@@ -399,7 +399,7 @@ function draw() {
     // Update spacecraft position using the ~middle of the trail to have both a predicted path and a travelled path
     $("#spacecraft").css({top: (trail.length > 30 ? trail[30].position.y - 15 + "px" : 0), left: (trail.length > 30 ? trail[30].position.x - 15 + "px" : 0), position:'relative', display: trail.length > 30 ? "block" : "none"});
     $("#spacecraft-icon").css({ 'transform': 'rotate(' + ((car.angle)/Math.PI)*180 + 'deg)'});
-    $("#spacecraft-icon").attr('src', car.thrust ? 'Spacecraft-flame.png' : 'Spacecraft.png');
+    $("#spacecraft-icon").attr('src', car.thrust ? './assets/Spacecraft-flame.png' : './assets/Spacecraft.png');
     
     
     if(trail.length > 30){
