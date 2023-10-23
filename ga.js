@@ -89,8 +89,10 @@ function resetGame() {
     noLoop();
     stopStopwatch();
     resetStopwatch();
-    ambientSound('stop');
-    clockSound('stop');
+    try {
+        ambientSound('stop');
+        clockSound('stop');
+    } catch {}
     $('#msg').text("Rebooting...wiping all high scores");
     $('#msg').css('display', 'flex');
     $('#msg').css('background-color', 'black');
@@ -137,6 +139,22 @@ function starMovement() {
 }
 
 
+// sound on/off
+var allowSound = false;
+$('#sound').html('volume_off');
+
+function toggleSound() {
+    if(allowSound) {
+        allowSound = false;
+        $('#sound').html('volume_off');
+        clockLoop.stop();
+        ambientLoop.stop();
+    } else {
+        allowSound = true;
+        $('#sound').html('volume_up');
+    }
+}
+
 
 // start clock ticking sound
 function soundsLoaded() {
@@ -154,7 +172,7 @@ thrustLoop.addUri('computer-generated-wind-56299-[AudioTrimmer.com].mp3', 3000, 
 function clockSound(control) {
     if (control === "start") {
         clockLoop.start("sound1");
-        clockLoop.volume(0.5);
+        clockLoop.volume(allowSound ? 0.5 : 0.0);
     } else if (control === "stop") {
         clockLoop.stop();
     }
@@ -162,9 +180,9 @@ function clockSound(control) {
 
 // start/stop ambient sound
 function ambientSound(control) {
-    if (control === "start") {
+    if (control === "start" && allowSound) {
         ambientLoop.start("sound1");
-        ambientLoop.volume(0.5);
+        ambientLoop.volume(allowSound ? 0.5 : 0.0);
     } else if (control === "stop") {
         ambientLoop.stop();
     }
@@ -197,6 +215,7 @@ function start() {
     starLoc();
     resetStopwatch();
     startStopwatch();
+    ambientSound('start');
     clockSound('start');
     setup();
     loop();
@@ -205,6 +224,7 @@ function start() {
 document.getElementById("start-stop").addEventListener("click", start);
 document.getElementById("local-storage").addEventListener("click", localStor);
 document.getElementById("reset-game").addEventListener("click", resetGame);
+document.getElementById("sound").addEventListener("click", toggleSound);
 
 var oriOffset = $('#planet0').offset();
 
